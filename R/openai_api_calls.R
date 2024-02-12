@@ -116,6 +116,7 @@ query_openai_api <- function(body, openai_api_key, task) {
     "Authorization" = glue("Bearer {openai_api_key}"),
     "Content-Type" = "application/json"
   )
+  print(body)
 
   response <- httr::POST(
     url = base_url,
