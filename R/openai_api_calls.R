@@ -98,7 +98,7 @@ openai_create_completion <-
 
     body <- list(
       model = model,
-      messages = prompt,
+      messages = list(prompt),
       suffix = suffix,
       max_tokens = max_tokens,
       temperature = temperature
