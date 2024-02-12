@@ -135,7 +135,12 @@ gpt_insert <- function(model,
   print(edit)
 
   if (append_text) {
-    improved_text <- c(selection$value, edit$choices$`messages.content`)
+    output_string <-  edit$choices$`messages.content`
+    start_index <- grep("```", file_content)[1]
+    end_index <- grep("```", file_content)[-1][1]
+    selected_text <- substr(file_content, start_index + 3, end_index - 1)
+    
+    improved_text <- c(selection$value, selected_text)
   } else {
     improved_text <- c(edit$choices$text, selection$value)
   }
