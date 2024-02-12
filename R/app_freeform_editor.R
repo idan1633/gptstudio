@@ -29,8 +29,8 @@ run_gpt_freeform <- function() {
             inputId = "model",
             label = "What OpenAI model do you want to use to edit?",
             choices = list(
-              "Use text model" = "text-davinci-edit-001",
-              "Use code model (alpha)" = "code-davinci-edit-001"
+              "Use text model" = "text-davinci-003",
+              "Use code model (alpha)" = "text-davinci-003"
             ),
             width = "90%"
           ),
