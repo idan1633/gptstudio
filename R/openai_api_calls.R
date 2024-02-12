@@ -1,56 +1,4 @@
-#' Create and edit text using OpenAI's API
-#'
-#' @param model The model to use for generating text
-#' @param input The input text to edit
-#' @param instruction The instruction for editing the text
-#' @param temperature The temperature to use for generating text (between 0 and
-#'   1). If `NULL`, the default temperature will be used. It is recommended NOT
-#'   to specify temperature and top_p at a time.
-#' @param top_p The top-p value to use for generating text (between 0 and 1). If
-#'   `NULL`, the default top-p value will be used. It is recommended NOT to
-#'   specify temperature and top_p at a time.
-#' @param openai_api_key The API key for accessing OpenAI's API. By default, the
-#'   function will try to use the `OPENAI_API_KEY` environment variable.
-#' @return A list with the edited text and other information returned by the
-#'   API.
-#' @export
-#' @examples
-#' \dontrun{
-#' openai_create_edit(
-#'   model = "text-davinci-002",
-#'   input = "Hello world!",
-#'   instruction = "Capitalize the first letter of each sentence."
-#' )
-#' }
-openai_create_edit <- function(model,
-                               input = '"',
-                               instruction,
-                               temperature = NULL,
-                               top_p = NULL,
-                               openai_api_key = Sys.getenv("OPENAI_API_KEY")) {
-  assert_that(
-    is.string(model),
-    is.string(input),
-    is.string(instruction),
-    is.number(temperature) && value_between(temperature, 0, 1),
-    is.string(openai_api_key),
-    value_between(top_p, 0, 1) || is.null(top_p)
-  )
 
-  if (is.number(temperature) && is.number(top_p)) {
-    warn("It is recommended NOT to specify temperature and top_p at a time.")
-  }
-
-  body <- list(
-    model = model,
-    input = input,
-    instruction = instruction,
-    temperature = temperature,
-    top_p = top_p
-  )
-
-  query_openai_api(body, openai_api_key, task = "edits")
-}
 
 
 #' Generate text completions using OpenAI's API
@@ -99,7 +47,7 @@ openai_create_completion <-
     body <- list(
       model = model,
       messages = list(
-        list(role = "system", content = "You are a helpful assistant. You only reply in code."),
+        list(role = "system", content = "You are a helpful assistant. You only reply in R code."),
         list(role = "user", content = prompt)
       ),
       suffix = suffix,
