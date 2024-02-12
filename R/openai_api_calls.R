@@ -104,7 +104,7 @@ openai_create_completion <-
       temperature = temperature
     )
 
-    query_openai_api(body, openai_api_key, task = "completions")
+    query_openai_api(body, openai_api_key, task = "chat/completions")
   }
 
 query_openai_api <- function(body, openai_api_key, task) {
