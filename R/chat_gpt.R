@@ -66,6 +66,8 @@ openai_chat <- function() {
         temperature = 0.5,
         openai_api_key = Sys.getenv("OPENAI_API_KEY")
       )
+    print("response")
+    print(reponse)
     answer <- response$choice$text
   } else {
     abort("Question no found in the document. Please try again.")

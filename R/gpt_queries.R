@@ -131,6 +131,7 @@ gpt_insert <- function(model,
   )
 
   inform("Inserting text from GPT...")
+  print("edit")
   print(edit)
 
   if (append_text) {
@@ -162,5 +163,5 @@ get_selection <- function() {
 insert_text <- function(improved_text) {
   print(improved_text)
   rstudioapi::verifyAvailable()
-  rstudioapi::insertText("improved_textkjsa;kja;lksjf;lkja;lk")
+  rstudioapi::insertText(improved_text)
 }

@@ -107,7 +107,7 @@ openai_create_completion <-
       temperature = temperature
     )
 
-    query_openai_api(body, openai_api_key, task = "chat/completions")
+    return(query_openai_api(body, openai_api_key, task = "chat/completions"))
   }
 
 query_openai_api <- function(body, openai_api_key, task) {
@@ -143,7 +143,7 @@ query_openai_api <- function(body, openai_api_key, task) {
   cli_text("Status code: {httr::status_code(response)}")
   print("parsed")
   print(parsed)
-  parsed
+  return(parsed)
 }
 
 value_between <- function(x, lower, upper) {
