@@ -86,10 +86,9 @@ gpt_create <- function(model,
     output_string <-  edit$choices$message.content
     print("Rrrr")
     print(output_string)
-    start_index <- grep("```R", output_string)[1]
-    end_index <- grep("```", output_string)[-1][1]
+    start_index <- gregexpr(pattern = "```", output_string)[[1]][1]
+    end_index <- gregexpr(pattern = "```", output_string)[[1]][2]
     selected_text <- substr(output_string, start_index + 4, end_index - 1)
-    print("***")
     print(selected_text)
     improved_text <- c(selection$value, selected_text)
     inform("Appending text from GPT...")
