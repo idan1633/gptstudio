@@ -127,6 +127,7 @@ query_openai_api <- function(body, openai_api_key, task) {
     body = body,
     encode = "json"
   )
+  print(response)
 
   parsed <- response %>%
     httr::content(as = "text", encoding = "UTF-8") %>%
@@ -140,7 +141,8 @@ query_openai_api <- function(body, openai_api_key, task) {
   }
 
   cli_text("Status code: {httr::status_code(response)}")
-
+  print("parsed")
+  print(parsed)
   parsed
 }
 
