@@ -82,7 +82,12 @@ gpt_create <- function(model,
   inform("Inserting text from GPT...")
 
   if (append_text) {
-    improved_text <- c(selection$value, edit$choices$message.content)
+    output_string <-  edit$choices$messages.content
+    start_index <- grep("```R", file_content)[1]
+    end_index <- grep("```", file_content)[-1][1]
+    selected_text <- substr(file_content, start_index + 4, end_index - 1)
+    
+    improved_text <- c(selection$value, selected_text)
     inform("Appending text from GPT...")
   } else {
     improved_text <- edit$choices$text
