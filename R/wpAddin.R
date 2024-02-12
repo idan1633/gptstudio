@@ -6,7 +6,7 @@
 #' @export
 wpAddin <- function() {
   gpt_create(
-    model = "text-davinci-003",
+    model = "gpt-3.5-turbo",
     max_tokens = 500,
     temperature = 0.1
   )
