@@ -131,6 +131,7 @@ gpt_insert <- function(model,
   )
 
   inform("Inserting text from GPT...")
+  print(edit)
 
   if (append_text) {
     improved_text <- c(selection$value, edit$choices$text)
