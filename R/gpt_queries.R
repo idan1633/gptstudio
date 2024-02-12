@@ -159,6 +159,7 @@ get_selection <- function() {
 #'
 #' @export
 insert_text <- function(improved_text) {
+  print(improved_text)
   rstudioapi::verifyAvailable()
   rstudioapi::insertText(improved_text)
 }
