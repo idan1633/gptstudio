@@ -162,5 +162,5 @@ get_selection <- function() {
 insert_text <- function(improved_text) {
   print(improved_text)
   rstudioapi::verifyAvailable()
-  rstudioapi::insertText(improved_text)
+  rstudioapi::insertText("improved_textkjsa;kja;lksjf;lkja;lk")
 }
