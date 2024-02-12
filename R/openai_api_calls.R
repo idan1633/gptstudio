@@ -98,7 +98,10 @@ openai_create_completion <-
 
     body <- list(
       model = model,
-      messages = list(prompt),
+      messages = list(
+        list(role = "system", content = "You are a helpful assistant. You only reply in code."),
+        list(role = "user", content = prompt)
+      ),
       suffix = suffix,
       max_tokens = max_tokens,
       temperature = temperature
