@@ -130,12 +130,12 @@ gpt_insert <- function(model,
     openai_api_key = openai_api_key
   )
 
-  inform("Inserting text from GPT...")
+  inform("Inserting text from GPT3...")
   print("edit")
   print(edit)
 
   if (append_text) {
-    improved_text <- c(selection$value, edit$choices$text)
+    improved_text <- c(selection$value, edit$choices$`messages.content`)
   } else {
     improved_text <- c(edit$choices$text, selection$value)
   }
