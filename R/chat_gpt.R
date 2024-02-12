@@ -60,7 +60,7 @@ openai_chat <- function() {
     inform("Querying GPT for an answer...")
     response <-
       openai_create_completion(
-        model = "text-davinci-003",
+        model = "gpt-3.5-turbo",
         prompt = stringr::str_c(trimmed_content, collapse = "\n"),
         max_tokens = 500,
         temperature = 0.5,
