@@ -108,7 +108,7 @@ openai_create_completion <-
   }
 
 query_openai_api <- function(body, openai_api_key, task) {
-  arg_match(task, c("completions", "edits"))
+  #arg_match(task, c("completions", "edits"))
 
   base_url <- glue("https://api.openai.com/v1/{task}")
 
