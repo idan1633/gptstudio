@@ -79,8 +79,8 @@ gpt_create <- function(model,
     openai_api_key = openai_api_key
   )
 
-  inform("Inserting text from GPT...")
-
+  inform("Inserting text from GPT6...")
+  print(append_text)
   if (append_text) {
     output_string <-  edit$choices$messages.content
     start_index <- grep("```R", output_string)[1]
