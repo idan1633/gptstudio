@@ -82,7 +82,7 @@ gpt_create <- function(model,
   inform("Inserting text from GPT...")
 
   if (append_text) {
-    improved_text <- c(selection$value, edit$choices$text)
+    improved_text <- c(selection$value, edit$choices$message.content)
     inform("Appending text from GPT...")
   } else {
     improved_text <- edit$choices$text
