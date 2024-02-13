@@ -74,4 +74,4 @@ gptstudio::change_gpt_settings(max_tokens = 100)
 
 ## Keyboard shortcut
 
-I used [this article] (<https://support.posit.co/hc/en-us/articles/206382178-Customizing-Keyboard-Shortcuts-in-the-RStudio-IDE> ) and made a shortcut to call this add in. I like command-shift-G. Keep in mind the addin is called "Write/Code from prompt" when following this tutorial.
+I used [this article](<https://support.posit.co/hc/en-us/articles/206382178-Customizing-Keyboard-Shortcuts-in-the-RStudio-IDE> ) and made a shortcut to call this addin. I like command-shift-G. Keep in mind the addin is called "Write/Code from prompt" when following this tutorial.
