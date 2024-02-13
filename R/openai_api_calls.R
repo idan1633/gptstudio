@@ -43,7 +43,8 @@ openai_create_completion <-
       is.string(openai_api_key),
       value_between(top_p, 0, 1) || is.null(top_p)
     )
-
+    print("****")
+    print(model)
     body <- list(
       model = model,
       messages = list(
