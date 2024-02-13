@@ -77,7 +77,7 @@ insert_text <- function(improved_text) {
 estimate_price <- function(model_name, input_tokens, output_tokens) {
   model_name <- tolower(model_name)  # Convert model name to lowercase for case-insensitive comparison
   
-  if (model_name == "gpt-4-turbo")) {
+  if (model_name == "gpt-4-turbo") {
     price <- input_tokens * 0.01 + output_tokens * 0.02
   } else if (grepl("gpt-3.5-turbo", model_name)) {
     price <- input_tokens * 0.0005 + output_tokens * 0.0015
