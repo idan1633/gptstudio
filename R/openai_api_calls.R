@@ -1,6 +1,5 @@
 
 
-
 #' Generate text completions using OpenAI's API
 #'
 #' @param model The model to use for generating text
@@ -43,8 +42,7 @@ openai_create_completion <-
       is.string(openai_api_key),
       value_between(top_p, 0, 1) || is.null(top_p)
     )
-    print("****")
-    print(model)
+
     body <- list(
       model = model,
       messages = list(
@@ -68,7 +66,6 @@ query_openai_api <- function(body, openai_api_key, task) {
     "Authorization" = glue("Bearer {openai_api_key}"),
     "Content-Type" = "application/json"
   )
-  print(body)
 
   response <- httr::POST(
     url = base_url,
@@ -76,7 +73,6 @@ query_openai_api <- function(body, openai_api_key, task) {
     body = body,
     encode = "json"
   )
-  print(response)
 
   parsed <- response %>%
     httr::content(as = "text", encoding = "UTF-8") %>%
@@ -90,8 +86,7 @@ query_openai_api <- function(body, openai_api_key, task) {
   }
 
   cli_text("Status code: {httr::status_code(response)}")
-  print("parsed")
-  print(parsed)
+
   return(parsed)
 }
 
