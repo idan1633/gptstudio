@@ -3,7 +3,9 @@
   op_gptstudio <- list(
     gptstudio.valid_api  = FALSE,
     gptstudio.openai_key = NULL,
-    gptstudio.max_tokens = 500
+    gptstudio.max_tokens = 500,
+    gptstudio.model = "gpt-3.5-turbo",
+    gptstudio.temperature = 0.1
   )
 
   toset <- !(names(op_gptstudio) %in% names(op))

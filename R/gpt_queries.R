@@ -17,9 +17,9 @@
 #' @export
 gpt_create <- function(model,
                        temperature,
-                       max_tokens = getOption("gptstudio.max_tokens"),
-                       openai_api_key = Sys.getenv("OPENAI_API_KEY"),
-                       append_text = TRUE) {
+                       max_tokens,
+                       openai_api_key = Sys.getenv("OPENAI_API_KEY")
+                       ) {
   check_api()
   selection <- get_selection()
 
@@ -32,23 +32,21 @@ gpt_create <- function(model,
     openai_api_key = openai_api_key
   )
 
-  inform("Inserting text from GPT...")
-  print(append_text)
-  if (append_text) {
-    output_string <-  edit$choices$message.content
-    start_index <- gregexpr(pattern = "```", output_string)[[1]][1]
-    end_index <- gregexpr(pattern = "```", output_string)[[1]][2]
-    if(start_index != -1){
-      selected_text <- substr(output_string, start_index + 4, end_index - 1)
-    }else{
-      selected_text <- output_string
-    }
-    improved_text <- c(selection$value, selected_text)
-    inform("Appending text from GPT...")
-  } else {
-    improved_text <- edit$choices$text
-    inform("Inserting text from GPT...")
+  if(edit$usage$total_tokens > max_tokens) stop(sprintf("Ran out of tokens, you had %s and need at least %s", max_tokens, edit$usage$total_tokens))
+  inform(sprintf("Inserting text from %s...", model))
+
+  output_string <-  edit$choices$message.content
+  start_index <- gregexpr(pattern = "```", output_string)[[1]][1]
+  end_index <- gregexpr(pattern = "```", output_string)[[1]][2]
+  if(start_index != -1){
+    selected_text <- substr(output_string, start_index + 4, end_index - 1)
+  }else{
+    selected_text <- output_string
   }
+  improved_text <- c(selection$value, selected_text)
+  inform(sprintf("Appending text from %s", model))
+  inform(sprintf("This completion used %s tokens", edit$usage$total_tokens))
+
   insert_text(improved_text)
 }
 
