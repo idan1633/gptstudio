@@ -1,151 +1,77 @@
+# gptstudio
 
-<!-- README.md is generated from README.Rmd. Please edit that file -->
-
-# gptstudio <img src="man/figures/logo.png" align="right" height="98"/>
-
-<!-- badges: start -->
-
-[![Lifecycle:
-experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
-[![CRAN
-status](https://www.r-pkg.org/badges/version/gptstudio)](https://CRAN.R-project.org/package=GPTstudio)
-[![Codecov test
-coverage](https://codecov.io/gh/MichelNivard/gptstudio/branch/main/graph/badge.svg)](https://app.codecov.io/gh/MichelNivard/gptstudio?branch=main)
-[![R-CMD-check](https://github.com/MichelNivard/gptstudio/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/MichelNivard/gptstudio/actions/workflows/R-CMD-check.yaml)
-<!-- badges: end -->
-
-The goal of gptstudio is for R programmers to easily incorporate use of
-large language models (LLMs) into their project workflows. These models
-appear to be a step change in our use of text for knowledge work, but
-you should carefully consider ethical implications of using these
-models. Ethics of LLMs (also called [Foundation
-Models](https://arxiv.org/abs/2108.07258)) is an area of very active
-discussion.
-
-For further addins, tailored for R developers, also see the sister
-package: [gpttools](https://jameshwade.github.io/gpttools/)
+This repo is a fork of <https://github.com/MichelNivard/gptstudio> which rolls back and only keeps one Rstudio Add-In. Write/Code from prompt. Usage:
 
 ## Install the addins from this package:
 
 ``` r
 require(devtools)
-install_github("MichelNivard/gptstudio")
+install_github("idan1633/gptstudio")
+```
+
+## Usage
+
+Once installed, you should have an Rstudio Add-In called 'Write/Code from prompt'. Comment a prompt, select it with the cursor, and click Addins, Write/Code from prompt. This should fill in GPTs reply in your file.
+
+### An example of use.
+
+``` r
+# Make a function that multiplies three matrices together and gets the standard deviation of the values in the resultant matrix
+
+multiply_and_get_sd <- function(matrix1, matrix2, matrix3) { 
+  result <- matrix1 %*% matrix2 %*% matrix3 
+  sd_result <- sd(result) return(sd_result) 
+}
 ```
 
 ## Privacy Notice
 
-These functions work by taking the text or code you have
-highlighted/selected with the cursor, or your prompt if you use one of
-the built-in apps, and send these to OpenAI as part of a prompt; they
-fall under their privacy notice/rules/exceptions you agreed to with
-OpenAI when making an account. We can’t tell you or guarantee how secure
-these prompts are when sent to OpenAI. We don’t know what OpenAI does
-with your prompts, but OpenAI is clear that they use prompts and results
-to improve their model (see their terms of use) unless you opt-out
-explicitly by contacting them. The code is designed to ONLY share the
-highlighted/selected text, or a prompt you build with the help of one of
-our apps and no other elements of your R environment. Make sure you are
-aware of what you send to OpenAI and do not accidentally share sensitive
-data with OpenAI.
+These functions work by taking the text or code you have highlighted/selected with the cursor, or your prompt if you use one of the built-in apps, and send these to OpenAI as part of a prompt; they fall under their privacy notice/rules/exceptions you agreed to with OpenAI when making an account. Don't select sensitive data.
 
-**DO NOT HIGHLIGHT, OR INCLUDE IN A PROMPT, AND THEREFORE UPLOAD,
-DATA/CODE/TEXT THAT SHOULD REMAIN PRIVATE**
+**DO NOT HIGHLIGHT, OR INCLUDE IN A PROMPT, AND THEREFORE UPLOAD, DATA/CODE/TEXT THAT SHOULD REMAIN PRIVATE**
 
 ## Prerequisites
 
 1.  Make an OpenAI account. As of now, the free one will do.
 
-2.  [Create an OpenAI API key](https://beta.openai.com/account/api-keys)
-    to use `{openai}` package within Rstudio
+2.  [Create an OpenAI API key](https://beta.openai.com/account/api-keys) to use `{openai}` package within Rstudio
 
 3.  Set the API key up in Rstudio in one of two ways:
 
-- By default, functions of `{openai}` will look for `OPENAI_API_KEY`
-  environment variable. If you want to set a global environment
-  variable, you can use the following command, where `"<APIKEY>"` should
-  be replaced with your actual key:
+-   By default, functions of `{openai}` will look for `OPENAI_API_KEY` environment variable. If you want to set a global environment variable, you can use the following command, where `"<APIKEY>"` should be replaced with your actual key:
 
 ``` r
 Sys.setenv(OPENAI_API_KEY = "<APIKEY>")
 ```
 
-- Alternatively, you can set the key in your .Renviron file.
+-   Alternatively, you can set the key in your .Renviron file.
 
-Otherwise, you can add the key to the .Renviron file of the project. The
-following commands will open .Renviron for editing:
+Otherwise, you can add the key to the .Renviron file of the project. The following commands will open .Renviron for editing:
 
 ``` r
 require(usethis)
 edit_r_environ(scope = "project")
 ```
 
-You can add the following line to the file (again, replace `"<APIKEY>"`
-with your actual key):
+You can add the following line to the file (again, replace `"<APIKEY>"` with your actual key):
 
 ``` bash
 OPENAI_API_KEY= "<APIKEY>")
 ```
 
-This now set the API key every time you start up this particular
-project. Note: If you are using GitHub/Gitlab, do not forget to add
-.Renviron to .gitignore!
+This now set the API key every time you start up this particular project. Note: If you are using GitHub/Gitlab, do not forget to add .Renviron to .gitignore!
 
-## Usage
+## Settings
 
-Some examples of use.
+The default settings are (model = gpt-3.5-turbo, temp = 0.1, max_tokens = 500). You can edit this as follows
 
-### Chat with GPT in Quarto
+``` r
+# Change all settings
+gptstudio::change_gpt_settings(max_tokens = 1000, model= "gpt-4-turbo-preview", temperature = 0.2)
+# change the one setting and keep the others as is
+gptstudio::change_gpt_settings(max_tokens = 100)
+```
 
-1.  **Addins \> GPTSTUDIO \> Start GPT Chat**
-2.  Type your question.
-3.  \*\*Addins \> GPTSTUDIO \> GPT Chat
+## Keyboard shortcut
 
-<video src="https://user-images.githubusercontent.com/6314313/210177908-7cf0f991-54f2-4f96-8bcd-3077bc8bbb25.mov" data-canonical-src="https://user-images.githubusercontent.com/6314313/210177908-7cf0f991-54f2-4f96-8bcd-3077bc8bbb25.mov" controls="controls" muted="muted" class="d-block rounded-bottom-2 width-fit" style="max-height:640px;">
-</video>
-
-### Spelling ang grammar check
-
-**Addins \> GPTSTUDIO \> Spelling and Grammar:** Takes the selected text
-sends it to OpenAI’s best model and instructs it to return a spelling
-and grammar checked version.
-
-![spelling](https://raw.githubusercontent.com/MichelNivard/gptstudio/main/media/spelling.gif)
-
-### Active voice
-
-**Addins \> GPTSTUDIO \> Change text to active voice:** Takes the
-selected text, sends it to OpenAI’s best model and instructs it to
-return the text in the active voice.
-
-![active_voice](https://raw.githubusercontent.com/MichelNivard/gptstudio/main/media/active_voice.gif)
-
-#### Write/code from prompt
-
-**Addins \> GPTSTUDIO \> Write/Code from prompt:** Takes the selected
-text and sends it to OpenAI as a prompt for the model to work with. This
-is most like the ChatGPT experience.
-
-Text from prompt:
-
-![prompt_text](https://raw.githubusercontent.com/MichelNivard/gptstudio/main/media/prompt_text.gif)
-
-Code from prompt:
-
-![prompt_code](https://raw.githubusercontent.com/MichelNivard/gptstudio/main/media/prompt_code.gif)
-
-### Comment your code:
-
-**Addins \> GPTSTUDIO \> Comment your code:** Takes the selected text
-sends it to OpenAI as a prompt for a code specific model to work with,
-asks for a version with a comment added explaining the code line by
-line.
-
-![add comments to
-code](https://raw.githubusercontent.com/MichelNivard/gptstudio/main/media/comments.gif)
-
-### Provide your own instructions
-
-**Addins \> GPTSTUDIO \> Freeform GPT editor:** Apply any edit what YOU
-desire or can dream up to a selection of code or text.
-
-![freeform](https://raw.githubusercontent.com/MichelNivard/gptstudio/main/media/hugo2.gif)
+I used [this article] (<https://support.posit.co/hc/en-us/articles/206382178-Customizing-Keyboard-Shortcuts-in-the-RStudio-IDE> ) and made a shortcut to call this add in. I like command-shift-G.
