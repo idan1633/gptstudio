@@ -45,8 +45,8 @@ gpt_create <- function(model,
   }
   improved_text <- c(selection$value, selected_text)
   inform(sprintf("Appending text from %s", model))
-  print(edit$usage)
-  inform(sprintf("This completion used %s tokens", edit$usage$total_tokens))
+  inform(sprintf("This completion used %s tokens and costed $%.4f", edit$usage$total_tokens, 
+                 estimate_price(model_name = model, input_tokens = edit$usage$prompt_tokens, output_tokens = edit$usage$completion_tokens)))
 
   insert_text(improved_text)
 }
