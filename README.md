@@ -8,6 +8,7 @@ This repo is a fork of <https://github.com/MichelNivard/gptstudio> which rolls b
 require(devtools)
 install_github("idan1633/gptstudio")
 ```
+restart R session
 
 ## Usage
 
