@@ -19,11 +19,12 @@ check_api_connection <- function(api_key) {
       cli_alert_success("API key is valid and a simple API call worked.")
       cli_alert_info("The API is validated once per session.")
       cli_text("The default value for number of tokens per query is 500.
-                    This equates to approximately $0.01 USD per query. You can
+                    This equates to approximately $0.02 USD per gpt-4 query and about $0.0005 for GPT-3.5-turbo. You can
                     increase or decrease the number of tokens with the
                     `gptstudio.max_tokens` option. Here is an example to lower
                     the max tokens to 100 tokens per query:")
-      cli_code("options(\"gptstudio.max_tokens\") = 100")
+      cli_code("gptstudio::change_gpt_settings(max_tokens = 500)")
+      cli_text("REMINDER: NEVER COPY SENSITIVE INFO AND RUN GPTSTUDIO AS THIS WILL UPLOAD THIS DATA TO OPENAI")
       options("gptstudio.valid_api" = TRUE)
       options("gptstudio.openai_key" = api_key)
       invisible(TRUE)
