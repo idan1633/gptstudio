@@ -45,6 +45,7 @@ gpt_create <- function(model,
   }
   improved_text <- c(selection$value, selected_text)
   inform(sprintf("Appending text from %s", model))
+  print(edit$usage)
   inform(sprintf("This completion used %s tokens", edit$usage$total_tokens))
 
   insert_text(improved_text)
@@ -71,4 +72,22 @@ get_selection <- function() {
 insert_text <- function(improved_text) {
   rstudioapi::verifyAvailable()
   rstudioapi::insertText(improved_text)
+}
+
+estimate_price <- function(model_name, input_tokens, output_tokens) {
+  model_name <- tolower(model_name)  # Convert model name to lowercase for case-insensitive comparison
+  
+  if (model_name == "gpt-4-turbo")) {
+    price <- input_tokens * 0.01 + output_tokens * 0.02
+  } else if (grepl("gpt-3.5-turbo", model_name)) {
+    price <- input_tokens * 0.0005 + output_tokens * 0.0015
+  } else if (grepl("gpt-4", model_name)) {
+    price <- input_tokens * 0.03 + output_tokens * 0.06
+  } else {
+    # Default case if the model name doesn't match any of the specified patterns
+    price <- NA
+    cat("Model pricing not known\n")
+  }
+  
+  return(price)
 }
